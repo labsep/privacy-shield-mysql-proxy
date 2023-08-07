@@ -1,6 +1,10 @@
 # Privacy Shield MySQL Proxy
 
-## Instalação
+## Dependências
+
+Você precisa de duas dependências:
+* Lua versão 5.1.X
+* MySQL
 
 ## Iniciando o proxy
 
