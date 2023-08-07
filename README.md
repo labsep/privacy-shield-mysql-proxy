@@ -1,1 +1,1 @@
-# privacy-shield-mysql-proxy
+# Privacy Shield MySQL Proxy
