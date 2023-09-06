@@ -2,6 +2,9 @@ package.path = package.path .. ";src/utils/?.lua"
 
 local trim = require("trim")
 
+--- Split a string by a given separator.
+--- @param str string The string to split.
+--- @param separator string? The separator regex. Defaults to " " characters.
 local function split(str, separator)
     separator = separator or "%s"
 

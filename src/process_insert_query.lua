@@ -6,6 +6,9 @@ local find = require("utils.find")
 local map = require("utils.map")
 local encrypt = require("encrypt")
 
+--- Parse an SQL INSERT query into a table containing its data.
+--- @param sql string The SQL query.
+--- @param table_configuration table The encryption configuration for the SQL table.
 local function parse_insert_query_data(sql, table_configuration)
     local query_data = {
         table = table_configuration.name
@@ -52,6 +55,9 @@ local function parse_insert_query_data(sql, table_configuration)
     return query_data
 end
 
+--- Add encryption SQL syntax to an INSERT query's data.
+--- @param query_data table The table containing the data of the SQL query.
+--- @param column_configurations table A table of encryption configurations for each column in the table.
 local function encrypt_insert_query_data(query_data, column_configurations)
     for _, column in ipairs(query_data.columns) do
         local column_configuration = find(
@@ -67,6 +73,8 @@ local function encrypt_insert_query_data(query_data, column_configurations)
     end
 end
 
+--- Compile parsed SQL INSERT query data back into an SQL query.
+--- @param query_data table The table containing the data of the SQL query.
 local function compile_insert_query_data(query_data)
     local sql = "INSERT INTO " .. query_data.table
 
@@ -91,6 +99,9 @@ local function compile_insert_query_data(query_data)
     return sql
 end
 
+--- Process an SQL INSERT query and return a modified query with encryption/decryption syntax.
+--- @param sql string The SQL query.
+--- @param table_configurations table The encryption configurations for each SQL table in the database.
 local function process_insert_query(sql, table_configurations)
     local split_sql = split(sql)
     local table_name = split_sql[3]

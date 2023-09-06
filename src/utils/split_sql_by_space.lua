@@ -1,7 +1,8 @@
-package.path = package.path .. ";src/utils/?.lua"
-
 local trim = require("trim")
 
+--- Split an SQL string by spaces.
+--- Takes into consideration not to split SQL strings that contain spaces.
+--- @param sql string The SQL string to split.
 local function split_sql_by_space(sql)
     local result = {}
     local in_quotes = false

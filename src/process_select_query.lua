@@ -5,10 +5,13 @@ local find = require("utils.find")
 local indexof = require("utils.indexof")
 local process_where_clause = require("process_where_clause")
 local map = require("utils.map")
-local split_sql_by_comma = require("split_sql_by_comma")
+local split_sql_by_comma = require("utils.split_sql_by_comma")
 local decrypt = require("decrypt")
 local compile_where_clause_data = require("compile_where_clause_data")
 
+--- Parse an SQL SELECT query into a table containing its data.
+--- @param sql string The SQL query.
+--- @param table_configuration table The encryption configuration for the SQL table.
 local function parse_select_query_data(sql, table_configuration)
     local query_data = {
         table = table_configuration.name,
@@ -46,6 +49,9 @@ local function parse_select_query_data(sql, table_configuration)
     return query_data
 end
 
+--- Add decryption SQL syntax to a SELECT query's data.
+--- @param query_data table The table containing the data of the SQL SELECT query.
+--- @param column_configurations table A table of encryption configurations for each column in the table.
 local function decrypt_select_query_data(query_data, column_configurations)
     for index, column_name in ipairs(query_data.columns) do
         local column_configuration = find(
@@ -64,6 +70,8 @@ local function decrypt_select_query_data(query_data, column_configurations)
     end
 end
 
+--- Compile parsed SQL SELECT query data back into an SQL query.
+--- @param query_data table The table containing the data of the SQL query.
 local function compile_select_query_data(query_data)
     local sql = "SELECT "
 
@@ -79,6 +87,8 @@ local function compile_select_query_data(query_data)
         end
     end
 
+    sql = sql .. " FROM " .. query_data.table
+
     if query_data.where then
         sql = sql .. " " .. compile_where_clause_data(query_data.where)
     end
@@ -86,6 +96,9 @@ local function compile_select_query_data(query_data)
     return sql
 end
 
+--- Process an SQL SELECT query and return a modified query with encryption/decryption syntax.
+--- @param sql string The SQL query.
+--- @param table_configurations table The encryption configurations for each SQL table in the database.
 local function process_select_query(sql, table_configurations)
     local split_sql = split_sql_by_space(sql)
     local table_name_index = indexof(split_sql, "FROM") + 1

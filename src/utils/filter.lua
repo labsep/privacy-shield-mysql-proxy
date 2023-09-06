@@ -1,3 +1,5 @@
+--- @param t table The table to filter.
+--- @param callback function The callback to filter the table with.
 local function filter(t, callback)
     local result = {}
 

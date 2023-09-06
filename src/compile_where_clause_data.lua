@@ -1,3 +1,5 @@
+--- Compile the data of an SQL WHERE clause into an SQL string.
+--- @param conditions_data table The SQL WHERE clause data.
 local function compile_where_clause_data(conditions_data)
     local sql = "WHERE "
 

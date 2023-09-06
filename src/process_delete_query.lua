@@ -5,6 +5,8 @@ local find = require("utils.find")
 local process_where_clause = require("process_where_clause")
 local compile_where_clause_data = require("compile_where_clause_data")
 
+--- Compile parsed SQL DELETE query data back into an SQL query.
+--- @param query_data table The table containing the data of the SQL query.
 local function compile_delete_query_data(query_data)
     local sql = "DELETE FROM " .. query_data.table
 
@@ -17,6 +19,9 @@ local function compile_delete_query_data(query_data)
     return sql
 end
 
+--- Process an SQL DELETE query and return a modified query with encryption/decryption syntax.
+--- @param sql string The SQL query.
+--- @param table_configurations table The encryption configurations for each SQL table in the database.
 local function process_delete_query(sql, table_configurations)
     local split_sql = split(sql)
     local table_name = split_sql[3]

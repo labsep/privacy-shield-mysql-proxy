@@ -6,6 +6,8 @@ local map = require("utils.map")
 local find = require("utils.find")
 local encrypt = require("encrypt")
 
+--- Split an SQL WHERE clause by "AND" or "OR".
+--- @param sql string The WHERE clause SQL string.
 local function split_where_clause_by_operator(sql)
     local split_sql = {}
     local current_fragment = ""
@@ -26,6 +28,8 @@ local function split_where_clause_by_operator(sql)
     return split_sql
 end
 
+--- Parse an SQL condition string into a table.
+--- @param sql string The condition SQL string.
 local function parse_condition_data(sql)
     local words = split_sql_by_space(sql)
 
@@ -55,6 +59,9 @@ local function parse_condition_data(sql)
     return condition_data
 end
 
+--- Adds SQL encryption syntax to the data of an SQL condition.
+--- @param condition_data table The SQL condition data.
+--- @param column_configurations table
 local function encrypt_condition_data(condition_data, column_configurations)
     local column_configuration = find(
         column_configurations,
@@ -64,13 +71,16 @@ local function encrypt_condition_data(condition_data, column_configurations)
     )
 
     if column_configuration.encrypt then
-        condition_data.value = encrypt(
-            condition_data.value,
+        condition_data.column= encrypt(
+            condition_data.column,
             column_configuration
         )
     end
 end
 
+--- Process an SQL WHERE clause, returning a table containing the encrypted data of the WHERE clause.
+--- @param sql string The SQL WHERE clause.
+--- @param column_configurations table The configuration for the table's columns.
 local function process_where_clause(sql, column_configurations)
     return map(
         split_where_clause_by_operator(sql),
