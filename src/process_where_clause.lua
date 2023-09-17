@@ -59,7 +59,7 @@ local function parse_condition_data(sql)
     return condition_data
 end
 
---- Adds SQL encryption syntax to the data of an SQL condition.
+--- Adds SQL decryption syntax to the data of an SQL condition.
 --- @param condition_data table The SQL condition data.
 --- @param column_configurations table
 local function encrypt_condition_data(condition_data, column_configurations)
@@ -71,8 +71,8 @@ local function encrypt_condition_data(condition_data, column_configurations)
     )
 
     if column_configuration.encrypt then
-        condition_data.column= encrypt(
-            condition_data.column,
+        condition_data.value = encrypt(
+            condition_data.value,
             column_configuration
         )
     end
