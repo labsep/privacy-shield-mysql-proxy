@@ -198,7 +198,7 @@ local function parse_condition_data(sql)
     return condition_data
 end
 
---- Adds SQL encryption syntax to the data of an SQL condition.
+--- Adds SQL decryption syntax to the data of an SQL condition.
 --- @param condition_data table The SQL condition data.
 --- @param column_configurations table
 local function encrypt_condition_data(condition_data, column_configurations)
@@ -210,8 +210,8 @@ local function encrypt_condition_data(condition_data, column_configurations)
     )
 
     if column_configuration.encrypt then
-        condition_data.column= encrypt(
-            condition_data.column,
+        condition_data.value = encrypt(
+            condition_data.value,
             column_configuration
         )
     end
@@ -624,7 +624,7 @@ local function process_delete_query(sql, table_configurations)
 end
 
 local DATABASE_CONFIGURATION = {
-    name = "teste",
+    name = "labsep",
     tables = {
         {
             name = "pacientes",
@@ -667,8 +667,8 @@ local function process_query(sql, table_configurations)
 
     local query_processor_function = accepted_commands[command_name]
 
-    if not process_query then
-        error("Processing function not found for SQL command: " .. command_name)
+    if not query_processor_function then
+        error("Query processing function not found for SQL command: " .. command_name)
     end
 
     local processed_query = query_processor_function(sql, table_configurations)
