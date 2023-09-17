@@ -5,7 +5,7 @@ local process_select_query = require("process_select_query")
 local split = require("utils.split")
 
 local DATABASE_CONFIGURATION = {
-    name = "teste",
+    name = "labsep",
     tables = {
         {
             name = "pacientes",
@@ -48,8 +48,8 @@ local function process_query(sql, table_configurations)
 
     local query_processor_function = accepted_commands[command_name]
 
-    if not process_query then
-        error("Processing function not found for SQL command: " .. command_name)
+    if not query_processor_function then
+        error("Query processing function not found for SQL command: " .. command_name)
     end
 
     local processed_query = query_processor_function(sql, table_configurations)
