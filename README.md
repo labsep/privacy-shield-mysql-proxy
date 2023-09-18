@@ -116,7 +116,6 @@ Os dados foram retornados já decriptografados. O cliente não precisou alterar 
 ## Fluxo
 
 ![darkmode](https://github.com/labsep/privacy-shield-mysql-proxy/assets/141641281/bd71de27-7dc7-46e8-9e69-fcede710624a#gh-dark-mode-only)
-![lightmode](https://github.com/labsep/privacy-shield-mysql-proxy/assets/141641281/d603e687-2b87-4fbf-8c85-5bb2e1d5ce7d#gh-light-mode-only)
 
 O fluxo do programa acontece na seguinte sequência:
 
