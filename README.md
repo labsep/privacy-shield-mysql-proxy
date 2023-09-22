@@ -101,7 +101,7 @@ SELECT * FROM pacientes WHERE nome = 'Fulano de Tal';
 +-----------------+-----------------+-----------------+-----------------+
 ```
 
-Os dados foram retornados já decriptografados. O cliente não precisou alterar a sua query de forma alguma. No entato, se olharmos os dados armazenados no banco de dados, perceberemos que eles estão criptografados:
+Os dados foram retornados já decriptografados. O cliente não precisou alterar a sua query de forma alguma. No entanto, se olharmos os dados armazenados no banco de dados, perceberemos que eles estão criptografados:
 
 ```
 +---------------------+---------------------+---------------------+---------------------+
